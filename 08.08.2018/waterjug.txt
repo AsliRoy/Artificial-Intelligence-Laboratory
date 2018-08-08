@@ -1,0 +1,53 @@
+import fractions
+
+class WaterJug:
+        
+        def __init__(self, x, y, goal):
+            self.JUG_1 = x
+            self.JUG_2 = y
+            self.j_1 = 0
+            self.j_2 = 0
+            self.pre_j_1 = 0
+            self.pre_j_2 = 0
+            self.goal = goal
+            self.path = []
+                              
+        def get_path(self):                  
+            pass
+            
+        def next_state(self, next_act):
+            self.path.append(self.j_1, self.j_2)
+            if self.j_1 < self.JUG_1:
+                next_act.append(self.JUG_1, self.j_2)
+                
+            if self.j_2 < self.JUG_2:
+                next_act.append(self.j_1, self.JUG_2)
+                
+            if self.j_1 > 0:
+                next_act.append(0, self.j_2)
+                
+            if self.j_2 > 0:
+                next_act.append(self.j_1, 0)
+                
+            if self.j_1 + self.j_2 >= self.JUG_1 and self.j_2 > 0:
+                next_act.append(self.JUG_1, self.j_2 - (self.JUG_1 - self.j_1))
+                
+            if self.j_1 + self.j_2 >= 0 and self.j_1 > 0:
+                next_act.append(self.j_1- (self.JUG_2 - self.j_2), self.JUG_2)
+                
+            if self.j_1 + self.j_2 <= self.JUG_1 and self.j_2 > 0:
+                next_act.append(self.j_1 + self.j_2, 0)
+                
+            if self.j_1 + self.j_2 <= self.JUG_2 and self.j_1 > 0:
+                next_act.append(0, self.j_1 + self.j_2)
+        
+if __name__ == "__main__":
+    x = int(raw_input( "Enter the capacity of first Water jug : "))
+    y = int(raw_input("Enter the Capacity of the second water jug : "))
+    goal = int(raw_input("Enter the amount you want in the first jug : "))
+    problem = WaterJug(x, y, goal)
+    hcf = fractions.gcd( problem.JUG_1, problem.JUG_2)
+    if goal % hcf == 0:
+        problem.get_path()
+    else: print "No Solution exists"
+    
