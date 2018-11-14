@@ -115,3 +115,8 @@ plt.xlabel('iteration')
 plt.ylabel('number of missclassifications')    
 plt.show()
 
+print "The minimum number of misclassifications is:"
+print min(CMissClassificationList)
+accuracy=(150-3)/150
+print float(accuracy)
+
